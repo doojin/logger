@@ -43,37 +43,37 @@ func New() *Logger {
 func (l *Logger) Info(message string) {
 	formatter := buildInfoFormatter(l.Settings)
 	writer := l.getWriter(l.Settings.Destination)
-	io.WriteString(writer, formatter.format(message, []interface{}{}))
+	io.WriteString(writer, formatter.format(message))
 }
 
 func (l *Logger) Infoln(message string) {
 	formatter := buildInfolnFormatter(l.Settings)
 	writer := l.getWriter(l.Settings.Destination)
-	io.WriteString(writer, formatter.format(message, []interface{}{}))
+	io.WriteString(writer, formatter.format(message))
 }
 
 func (l *Logger) Infof(message string, args ...interface{}) {
 	formatter := buildInfofFormatter(l.Settings)
 	writer := l.getWriter(l.Settings.Destination)
-	io.WriteString(writer, formatter.format(message, args))
+	io.WriteString(writer, formatter.format(message, args...))
 }
 
 func (l *Logger) Warn(message string) {
 	formatter := buildWarnFormatter(l.Settings)
 	writer := l.getWriter(l.Settings.Destination)
-	io.WriteString(writer, formatter.format(message, []interface{}{}))
+	io.WriteString(writer, formatter.format(message))
 }
 
 func (l *Logger) Warnln(message string) {
 	formatter := buildWarnlnFormatter(l.Settings)
 	writer := l.getWriter(l.Settings.Destination)
-	io.WriteString(writer, formatter.format(message, []interface{}{}))
+	io.WriteString(writer, formatter.format(message))
 }
 
 func (l *Logger) Warnf(message string, args ...interface{}) {
 	formatter := buildWarnfFormatter(l.Settings)
 	writer := l.getWriter(l.Settings.Destination)
-	io.WriteString(writer, formatter.format(message, args))
+	io.WriteString(writer, formatter.format(message, args...))
 }
 
 func (l *Logger) getWriter(key string) io.Writer {

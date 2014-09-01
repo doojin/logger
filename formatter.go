@@ -16,7 +16,7 @@ type formatter struct {
 	timeFormat string
 }
 
-func (f formatter) format(message string, args []interface{}) string {
+func (f formatter) format(message string, args ...interface{}) string {
 
 	output := f.layout
 
