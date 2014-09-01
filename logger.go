@@ -21,16 +21,16 @@ type Logger struct {
 
 type settings struct {
 	Destination string
-	Layout string
+	Layout      string
 }
 
 func New() *Logger {
 	return &Logger{
 		Settings: settings{
 			Destination: "default",
-			Layout: "[{level}] {message}",
+			Layout:      "[{level}] {message}",
 		},
-		
+
 		Writers: map[string]io.Writer{
 			"default": os.Stdout,
 			"console": os.Stdout,
