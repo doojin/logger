@@ -15,7 +15,7 @@ type formatter struct {
 	layout  string
 }
 
-func (f formatter) format(message string, args ...interface{}) string {
+func (f formatter) format(message string, args []interface{}) string {
 
 	output := f.layout
 
@@ -40,7 +40,7 @@ func buildInfoFormatter(settings settings) formatter {
 	}
 }
 
-func buildInfoLnFormatter(settings settings) formatter {
+func buildInfolnFormatter(settings settings) formatter {
 	return formatter{
 		level:   INFO,
 		newLine: true,
@@ -51,6 +51,29 @@ func buildInfoLnFormatter(settings settings) formatter {
 func buildInfofFormatter(settings settings) formatter {
 	return formatter{
 		level:   INFO,
+		newLine: true,
+		layout:  settings.Layout,
+	}
+}
+
+func buildWarnFormatter(settings settings) formatter {
+	return formatter{
+		level:  WARN,
+		layout: settings.Layout,
+	}
+}
+
+func buildWarnlnFormatter(settings settings) formatter {
+	return formatter{
+		level:   WARN,
+		newLine: true,
+		layout:  settings.Layout,
+	}
+}
+
+func buildWarnfFormatter(settings settings) formatter {
+	return formatter{
+		level:   WARN,
 		newLine: true,
 		layout:  settings.Layout,
 	}
