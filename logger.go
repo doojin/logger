@@ -22,13 +22,15 @@ type Logger struct {
 type settings struct {
 	Destination string
 	Layout      string
+	TimeFormat  string
 }
 
 func New() *Logger {
 	return &Logger{
 		Settings: settings{
 			Destination: "default",
-			Layout:      "[{level}] {message}",
+			Layout:      "{time} [{level}] {message}",
+			TimeFormat:  "15:04:05",
 		},
 
 		Writers: map[string]io.Writer{

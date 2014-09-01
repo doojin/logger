@@ -5,6 +5,12 @@ import (
 	"testing"
 )
 
+var defTimingOriginal = defTiming
+
+func Test_Before(t *testing.T) {
+	defTiming = mockedTiming{}
+}
+
 type testcase struct {
 	input          string
 	formatter      formatter
@@ -13,6 +19,7 @@ type testcase struct {
 }
 
 var testcases = []testcase{
+	// newLine: true
 	{
 		"dummy",
 		formatter{
@@ -22,6 +29,7 @@ var testcases = []testcase{
 		"dummy\n",
 		[]interface{}{},
 	},
+	// newLine: false
 	{
 		"dummy",
 		formatter{
@@ -31,6 +39,7 @@ var testcases = []testcase{
 		"dummy",
 		[]interface{}{},
 	},
+	// formatting
 	{
 		"dummy %2.2f",
 		formatter{
@@ -39,6 +48,7 @@ var testcases = []testcase{
 		"dummy 12.35",
 		[]interface{}{12.3456},
 	},
+	// formatting and new line
 	{
 		"dummy %v dummy",
 		formatter{
@@ -48,6 +58,7 @@ var testcases = []testcase{
 		"dummy cat dummy\n",
 		[]interface{}{"cat"},
 	},
+	// level: INFO
 	{
 		"dummy",
 		formatter{
@@ -57,6 +68,7 @@ var testcases = []testcase{
 		"[INFO] dummy",
 		[]interface{}{},
 	},
+	// level: WARN
 	{
 		"dummy",
 		formatter{
@@ -66,6 +78,7 @@ var testcases = []testcase{
 		"[WARN] dummy",
 		[]interface{}{},
 	},
+	// level: ERROR
 	{
 		"dummy",
 		formatter{
@@ -75,6 +88,7 @@ var testcases = []testcase{
 		"[ERROR] dummy",
 		[]interface{}{},
 	},
+	// level: FATAL
 	{
 		"dummy",
 		formatter{
@@ -84,6 +98,7 @@ var testcases = []testcase{
 		"[FATAL] dummy",
 		[]interface{}{},
 	},
+	// level: DEBUG
 	{
 		"dummy",
 		formatter{
@@ -93,6 +108,7 @@ var testcases = []testcase{
 		"[DEBUG] dummy",
 		[]interface{}{},
 	},
+	// level: TRACE
 	{
 		"dummy",
 		formatter{
@@ -102,6 +118,7 @@ var testcases = []testcase{
 		"[TRACE] dummy",
 		[]interface{}{},
 	},
+	// default level
 	{
 		"dummy %v dummy",
 		formatter{
@@ -110,6 +127,7 @@ var testcases = []testcase{
 		"[INFO] dummy 15 dummy",
 		[]interface{}{15},
 	},
+	// formatting with multiple arguments
 	{
 		"dummy %v dummy %v dummy",
 		formatter{
@@ -119,6 +137,17 @@ var testcases = []testcase{
 		},
 		"[WARN] dummy black dummy white dummy\n",
 		[]interface{}{"black", "white"},
+	},
+	// time formatting
+	{
+		"dummy",
+		formatter{
+			layout:     "[{time}] {message}",
+			level:      ERROR,
+			timeFormat: "Mon, 02 Jan 2006 15:04:05",
+		},
+		"[Wed, 02 Jan 1985 03:04:05] dummy",
+		[]interface{}{},
 	},
 }
 
@@ -131,61 +160,65 @@ func Test_format_ShouldFormatCorrectly(t *testing.T) {
 }
 
 func Test_buildInfoFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
-    logger := New()
-    formatter := buildInfoFormatter(logger.Settings)
-    input := "dummy"
-    
-    actualOutput := formatter.format(input, []interface{}{})
-    
-    assert.Equal(t, "[INFO] dummy", actualOutput)
+	logger := New()
+	formatter := buildInfoFormatter(logger.Settings)
+	input := "dummy"
+
+	actualOutput := formatter.format(input, []interface{}{})
+
+	assert.Equal(t, "03:04:05 [INFO] dummy", actualOutput)
 }
 
 func Test_buildInfolnFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
-    logger := New()
-    formatter := buildInfolnFormatter(logger.Settings)
-    input := "dummy"
-    
-    actualOutput := formatter.format(input, []interface{}{})
-    
-    assert.Equal(t, "[INFO] dummy\n", actualOutput)
+	logger := New()
+	formatter := buildInfolnFormatter(logger.Settings)
+	input := "dummy"
+
+	actualOutput := formatter.format(input, []interface{}{})
+
+	assert.Equal(t, "03:04:05 [INFO] dummy\n", actualOutput)
 }
 
 func Test_buildInfofFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
-    logger := New()
-    formatter := buildInfolnFormatter(logger.Settings)
-    input := "dummy %v"
-    
-    actualOutput := formatter.format(input, []interface{}{"dummy"})
-    
-    assert.Equal(t, "[INFO] dummy dummy\n", actualOutput)
+	logger := New()
+	formatter := buildInfolnFormatter(logger.Settings)
+	input := "dummy %v"
+
+	actualOutput := formatter.format(input, []interface{}{"dummy"})
+
+	assert.Equal(t, "03:04:05 [INFO] dummy dummy\n", actualOutput)
 }
 
 func Test_buildWarnFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
-    logger := New()
-    formatter := buildWarnFormatter(logger.Settings)
-    input := "dummy"
-    
-    actualOutput := formatter.format(input, []interface{}{})
-    
-    assert.Equal(t, "[WARN] dummy", actualOutput)
+	logger := New()
+	formatter := buildWarnFormatter(logger.Settings)
+	input := "dummy"
+
+	actualOutput := formatter.format(input, []interface{}{})
+
+	assert.Equal(t, "03:04:05 [WARN] dummy", actualOutput)
 }
 
 func Test_buildWarnlnFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
-    logger := New()
-    formatter := buildWarnlnFormatter(logger.Settings)
-    input := "dummy"
-    
-    actualOutput := formatter.format(input, []interface{}{})
-    
-    assert.Equal(t, "[WARN] dummy\n", actualOutput)
+	logger := New()
+	formatter := buildWarnlnFormatter(logger.Settings)
+	input := "dummy"
+
+	actualOutput := formatter.format(input, []interface{}{})
+
+	assert.Equal(t, "03:04:05 [WARN] dummy\n", actualOutput)
 }
 
 func Test_buildWarnfFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
-    logger := New()
-    formatter := buildWarnfFormatter(logger.Settings)
-    input := "dummy %v"
-    
-    actualOutput := formatter.format(input, []interface{}{"dummy"})
-    
-    assert.Equal(t, "[WARN] dummy dummy\n", actualOutput)
+	logger := New()
+	formatter := buildWarnfFormatter(logger.Settings)
+	input := "dummy %v"
+
+	actualOutput := formatter.format(input, []interface{}{"dummy"})
+
+	assert.Equal(t, "03:04:05 [WARN] dummy dummy\n", actualOutput)
+}
+
+func Test_After(t *testing.T) {
+	defTiming = defTimingOriginal
 }
