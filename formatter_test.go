@@ -5,10 +5,10 @@ import (
 	"testing"
 )
 
-var defTimingOriginal = defTiming
+var defTimingOriginal = defaultTiming
 
 func Test_Before(t *testing.T) {
-	defTiming = mockedTiming{}
+	defaultTiming = mockedTiming{}
 }
 
 type testcase struct {
@@ -211,5 +211,5 @@ func Test_buildWarnfFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
 }
 
 func Test_After(t *testing.T) {
-	defTiming = defTimingOriginal
+	defaultTiming = defTimingOriginal
 }

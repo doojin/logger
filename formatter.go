@@ -27,7 +27,7 @@ func (f formatter) format(message string, args ...interface{}) string {
 	output = strings.Replace(output, "{level}", getLevelRep(f.level), -1)
 	output = strings.Replace(output, "{message}", message, -1)
 
-	currentTime := defTiming.getCurrentTime().Format(f.timeFormat)
+	currentTime := defaultTiming.getCurrentTime().Format(f.timeFormat)
 	output = strings.Replace(output, "{time}", currentTime, -1)
 
 	if f.newLine {

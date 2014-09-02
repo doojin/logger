@@ -2,7 +2,7 @@ package logger
 
 import "time"
 
-var defTiming timingI = timing{}
+var defaultTiming timingI = timing{}
 
 type timingI interface {
 	getCurrentTime() time.Time
