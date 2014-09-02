@@ -20,17 +20,17 @@ type Logger struct {
 }
 
 type settings struct {
-	Destination string
-	Layout      string
-	TimeFormat  string
+	Writer     string
+	Layout     string
+	TimeFormat string
 }
 
 func New() *Logger {
 	return &Logger{
 		Settings: settings{
-			Destination: "default",
-			Layout:      "{time} [{level}] {message}",
-			TimeFormat:  "15:04:05",
+			Writer:     "default",
+			Layout:     "{time} [{level}] {message}",
+			TimeFormat: "15:04:05",
 		},
 
 		Writers: map[string]io.Writer{
@@ -42,37 +42,37 @@ func New() *Logger {
 
 func (l *Logger) Info(message string) {
 	formatter := buildInfoFormatter(l.Settings)
-	writer := l.getWriter(l.Settings.Destination)
+	writer := l.getWriter(l.Settings.Writer)
 	io.WriteString(writer, formatter.format(message))
 }
 
 func (l *Logger) Infoln(message string) {
 	formatter := buildInfolnFormatter(l.Settings)
-	writer := l.getWriter(l.Settings.Destination)
+	writer := l.getWriter(l.Settings.Writer)
 	io.WriteString(writer, formatter.format(message))
 }
 
 func (l *Logger) Infof(message string, args ...interface{}) {
 	formatter := buildInfofFormatter(l.Settings)
-	writer := l.getWriter(l.Settings.Destination)
+	writer := l.getWriter(l.Settings.Writer)
 	io.WriteString(writer, formatter.format(message, args...))
 }
 
 func (l *Logger) Warn(message string) {
 	formatter := buildWarnFormatter(l.Settings)
-	writer := l.getWriter(l.Settings.Destination)
+	writer := l.getWriter(l.Settings.Writer)
 	io.WriteString(writer, formatter.format(message))
 }
 
 func (l *Logger) Warnln(message string) {
 	formatter := buildWarnlnFormatter(l.Settings)
-	writer := l.getWriter(l.Settings.Destination)
+	writer := l.getWriter(l.Settings.Writer)
 	io.WriteString(writer, formatter.format(message))
 }
 
 func (l *Logger) Warnf(message string, args ...interface{}) {
 	formatter := buildWarnfFormatter(l.Settings)
-	writer := l.getWriter(l.Settings.Destination)
+	writer := l.getWriter(l.Settings.Writer)
 	io.WriteString(writer, formatter.format(message, args...))
 }
 
