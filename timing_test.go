@@ -2,6 +2,8 @@ package logger
 
 import "time"
 
+var defTimingOriginal = defaultTiming
+
 type mockedTiming struct {
 }
 

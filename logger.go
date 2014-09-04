@@ -40,6 +40,29 @@ func New() *Logger {
 	}
 }
 
+func (l *Logger) Log(levelId string, message string, args ...interface{}) {
+	formattedMessage := l.formatMessage(levelId, message, args...)
+	writer := l.getWriter(l.Settings.Writer)
+	io.WriteString(writer, formattedMessage)
+}
+
+func (l *Logger) formatMessage(levelId string, message string, args ...interface{}) (result string) {
+	level, err := getLevel(levelId)
+	if err != nil {
+		result = buildInfofFormatter(l.Settings).format("%v", err)
+		return
+	}
+	switch level {
+		case INFO:
+			result = buildInfofFormatter(l.Settings).format(message, args...)
+		case WARN:
+			result = buildWarnfFormatter(l.Settings).format(message, args...)
+		default:
+			result = buildInfofFormatter(l.Settings).format(message, args...)
+	}
+	return
+}
+
 func (l *Logger) Info(message string) {
 	formatter := buildInfoFormatter(l.Settings)
 	writer := l.getWriter(l.Settings.Writer)

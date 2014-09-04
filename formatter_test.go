@@ -5,9 +5,7 @@ import (
 	"testing"
 )
 
-var defTimingOriginal = defaultTiming
-
-func Test_Before(t *testing.T) {
+func Test_formatter_test_Before(t *testing.T) {
 	defaultTiming = mockedTiming{}
 }
 
@@ -210,6 +208,6 @@ func Test_buildWarnfFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
 	assert.Equal(t, "03:04:05 [WARN] dummy dummy\n", actualOutput)
 }
 
-func Test_After(t *testing.T) {
+func Test_formatter_test_After(t *testing.T) {
 	defaultTiming = defTimingOriginal
 }
