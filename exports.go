@@ -3,6 +3,10 @@ package logger
 var defaultLogger = New()
 var Settings = &defaultLogger.Settings
 
+func Log(levelId string, message string, args ...interface{}) {
+	defaultLogger.Log(levelId, message, args...)
+}
+
 func Info(message string) {
 	defaultLogger.Info(message)
 }
