@@ -305,6 +305,36 @@ func Test_buildErrorfFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
 	assert.Equal(t, "03:04:05 [ERROR] dummy dummy\n", actualOutput)
 }
 
+func Test_buildFatalFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
+	logger := New()
+	formatter := buildFatalFormatter(logger.Settings)
+	input := "dummy"
+
+	actualOutput := formatter.format(input)
+
+	assert.Equal(t, "03:04:05 [FATAL] dummy", actualOutput)
+}
+
+func Test_buildFatallnFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
+	logger := New()
+	formatter := buildFatallnFormatter(logger.Settings)
+	input := "dummy"
+
+	actualOutput := formatter.format(input)
+
+	assert.Equal(t, "03:04:05 [FATAL] dummy\n", actualOutput)
+}
+
+func Test_buildFatalfFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
+	logger := New()
+	formatter := buildFatalfFormatter(logger.Settings)
+	input := "dummy %v"
+
+	actualOutput := formatter.format(input, []interface{}{"dummy"}...)
+
+	assert.Equal(t, "03:04:05 [FATAL] dummy dummy\n", actualOutput)
+}
+
 func Test_formatArgs_ShouldFormatArgumentsIfTheyExist(t *testing.T) {
 	f := formatter{}
 	input := "dummy %v %v"

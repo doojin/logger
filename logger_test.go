@@ -42,6 +42,12 @@ var formatMessageTestCases = []formatMessageTestCase{
 		message:  "dummy",
 		expected: "03:04:05 [ERROR] dummy\n",
 	},
+	// [FATAL] message
+	formatMessageTestCase{
+		levelId:  "fatal",
+		message:  "dummy",
+		expected: "03:04:05 [FATAL] dummy\n",
+	},
 	// [INFO] message with arguments
 	formatMessageTestCase{
 		levelId:  "info",
@@ -62,6 +68,13 @@ var formatMessageTestCases = []formatMessageTestCase{
 		message:  "dummy %v",
 		args:     []interface{}{"argument1"},
 		expected: "03:04:05 [ERROR] dummy argument1\n",
+	},
+	// [FATAL] message with arguments
+	formatMessageTestCase{
+		levelId:  "fatal",
+		message:  "dummy %v",
+		args:     []interface{}{"argument1"},
+		expected: "03:04:05 [FATAL] dummy argument1\n",
 	},
 }
 

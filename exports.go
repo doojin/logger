@@ -38,3 +38,15 @@ func Errorln(message string) {
 func Errorf(message string, args ...interface{}) {
 	defaultLogger.Errorf(message, args...)
 }
+
+func Fatal(message string) {
+	defaultLogger.Fatal(message)
+}
+
+func Fatalln(message string) {
+	defaultLogger.Fatalln(message)
+}
+
+func Fatalf(message string, args ...interface{}) {
+	defaultLogger.Fatalf(message, args...)
+}

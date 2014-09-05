@@ -94,6 +94,24 @@ func (l *Logger) Errorf(message string, args ...interface{}) {
 	l.write(writer, formatter.format(message, args...))
 }
 
+func (l *Logger) Fatal(message string) {
+	formatter := buildFatalFormatter(l.Settings)
+	writer := l.getWriter(l.Settings.Writer)
+	l.write(writer, formatter.format(message))
+}
+
+func (l *Logger) Fatalln(message string) {
+	formatter := buildFatallnFormatter(l.Settings)
+	writer := l.getWriter(l.Settings.Writer)
+	l.write(writer, formatter.format(message))
+}
+
+func (l *Logger) Fatalf(message string, args ...interface{}) {
+	formatter := buildFatalfFormatter(l.Settings)
+	writer := l.getWriter(l.Settings.Writer)
+	l.write(writer, formatter.format(message, args...))
+}
+
 func (l *Logger) formatMessage(levelId string, message string, args ...interface{}) (result string) {
 	// If level not supported by logger
 	level, err := getLevel(levelId)
@@ -108,6 +126,8 @@ func (l *Logger) formatMessage(levelId string, message string, args ...interface
 		result = buildWarnfFormatter(l.Settings).format(message, args...)
 	case ERROR:
 		result = buildErrorfFormatter(l.Settings).format(message, args...)
+	case FATAL:
+		result = buildFatalfFormatter(l.Settings).format(message, args...)
 	default:
 		result = buildInfofFormatter(l.Settings).format(message, args...)
 	}

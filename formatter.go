@@ -123,3 +123,29 @@ func buildErrorfFormatter(settings settings) formatter {
 		timeFormat: settings.TimeFormat,
 	}
 }
+
+func buildFatalFormatter(settings settings) formatter {
+	return formatter{
+		level:      FATAL,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}
+
+func buildFatallnFormatter(settings settings) formatter {
+	return formatter{
+		level:      FATAL,
+		newLine:    true,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}
+
+func buildFatalfFormatter(settings settings) formatter {
+	return formatter{
+		level:      FATAL,
+		newLine:    true,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}
