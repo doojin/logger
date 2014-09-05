@@ -123,6 +123,24 @@ func (l *Logger) Debugf(message string, args ...interface{}) {
 	l.write(writer, formatter.format(message, args...))
 }
 
+func (l *Logger) Trace(message string) {
+	formatter := buildTraceFormatter(l.Settings)
+	writer := l.getWriter(l.Settings.Writer)
+	l.write(writer, formatter.format(message))
+}
+
+func (l *Logger) Traceln(message string) {
+	formatter := buildTracelnFormatter(l.Settings)
+	writer := l.getWriter(l.Settings.Writer)
+	l.write(writer, formatter.format(message))
+}
+
+func (l *Logger) Tracef(message string, args ...interface{}) {
+	formatter := buildTracefFormatter(l.Settings)
+	writer := l.getWriter(l.Settings.Writer)
+	l.write(writer, formatter.format(message, args...))
+}
+
 func (l *Logger) formatMessage(levelId string, message string, args ...interface{}) (result string) {
 	// If level not supported by logger
 	level, err := getLevel(levelId)
@@ -131,18 +149,20 @@ func (l *Logger) formatMessage(levelId string, message string, args ...interface
 		return
 	}
 	switch level {
-		case INFO:
-			result = buildInfofFormatter(l.Settings).format(message, args...)
-		case WARN:
-			result = buildWarnfFormatter(l.Settings).format(message, args...)
-		case ERROR:
-			result = buildErrorfFormatter(l.Settings).format(message, args...)
-		case FATAL:
-			result = buildFatalfFormatter(l.Settings).format(message, args...)
-		case DEBUG:
-			result = buildDebugfFormatter(l.Settings).format(message, args...)
-		default:
-			result = buildInfofFormatter(l.Settings).format(message, args...)
+	case INFO:
+		result = buildInfofFormatter(l.Settings).format(message, args...)
+	case WARN:
+		result = buildWarnfFormatter(l.Settings).format(message, args...)
+	case ERROR:
+		result = buildErrorfFormatter(l.Settings).format(message, args...)
+	case FATAL:
+		result = buildFatalfFormatter(l.Settings).format(message, args...)
+	case DEBUG:
+		result = buildDebugfFormatter(l.Settings).format(message, args...)
+	case TRACE:
+		result = buildTracefFormatter(l.Settings).format(message, args...)
+	default:
+		result = buildInfofFormatter(l.Settings).format(message, args...)
 	}
 	return
 }

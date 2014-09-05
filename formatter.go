@@ -175,3 +175,29 @@ func buildDebugfFormatter(settings settings) formatter {
 		timeFormat: settings.TimeFormat,
 	}
 }
+
+func buildTraceFormatter(settings settings) formatter {
+	return formatter{
+		level:      TRACE,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}
+
+func buildTracelnFormatter(settings settings) formatter {
+	return formatter{
+		level:      TRACE,
+		newLine:    true,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}
+
+func buildTracefFormatter(settings settings) formatter {
+	return formatter{
+		level:      TRACE,
+		newLine:    true,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}

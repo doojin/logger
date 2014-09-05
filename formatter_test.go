@@ -385,6 +385,36 @@ func Test_buildDebugfFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
 	assert.Equal(t, "03:04:05 [DEBUG] dummy dummy\n", actualOutput)
 }
 
+func Test_buildTraceFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
+	logger := New()
+	formatter := buildTraceFormatter(logger.Settings)
+	input := "dummy"
+
+	actualOutput := formatter.format(input)
+
+	assert.Equal(t, "03:04:05 [TRACE] dummy", actualOutput)
+}
+
+func Test_buildTracelnFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
+	logger := New()
+	formatter := buildTracelnFormatter(logger.Settings)
+	input := "dummy"
+
+	actualOutput := formatter.format(input)
+
+	assert.Equal(t, "03:04:05 [TRACE] dummy\n", actualOutput)
+}
+
+func Test_buildTracefFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
+	logger := New()
+	formatter := buildTracefFormatter(logger.Settings)
+	input := "dummy %v"
+
+	actualOutput := formatter.format(input, []interface{}{"dummy"}...)
+
+	assert.Equal(t, "03:04:05 [TRACE] dummy dummy\n", actualOutput)
+}
+
 func Test_formatArgs_ShouldFormatArgumentsIfTheyExist(t *testing.T) {
 	f := formatter{}
 	input := "dummy %v %v"

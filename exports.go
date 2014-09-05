@@ -66,3 +66,15 @@ func Debugln(message string) {
 func Debugf(message string, args ...interface{}) {
 	defaultLogger.Debugf(message, args...)
 }
+
+func Trace(message string) {
+	defaultLogger.Trace(message)
+}
+
+func Traceln(message string) {
+	defaultLogger.Traceln(message)
+}
+
+func Tracef(message string, args ...interface{}) {
+	defaultLogger.Tracef(message, args...)
+}
