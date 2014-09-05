@@ -54,12 +54,12 @@ func (l *Logger) formatMessage(levelId string, message string, args ...interface
 		return
 	}
 	switch level {
-		case INFO:
-			result = buildInfofFormatter(l.Settings).format(message, args...)
-		case WARN:
-			result = buildWarnfFormatter(l.Settings).format(message, args...)
-		default:
-			result = buildInfofFormatter(l.Settings).format(message, args...)
+	case INFO:
+		result = buildInfofFormatter(l.Settings).format(message, args...)
+	case WARN:
+		result = buildWarnfFormatter(l.Settings).format(message, args...)
+	default:
+		result = buildInfofFormatter(l.Settings).format(message, args...)
 	}
 	return
 }

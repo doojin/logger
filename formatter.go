@@ -17,24 +17,33 @@ type formatter struct {
 }
 
 func (f formatter) format(message string, args ...interface{}) string {
+	message = f.formatArgs(message, args...)
+	output := f.formatLayout(message)
+	output = f.formatNewLine(output)
+	return output
+}
 
-	output := f.layout
-
+func (f formatter) formatArgs(message string, args ...interface{}) string {
 	if len(args) > 0 {
 		message = fmt.Sprintf(message, args...)
 	}
+	return message
+}
 
-	output = strings.Replace(output, "{level}", getLevelRep(f.level), -1)
-	output = strings.Replace(output, "{message}", message, -1)
-
+func (f formatter) formatLayout(message string) string {
+	layout := f.layout
+	layout = strings.Replace(layout, "{level}", getLevelRep(f.level), -1)
+	layout = strings.Replace(layout, "{message}", message, -1)
 	currentTime := defaultTiming.getCurrentTime().Format(f.timeFormat)
-	output = strings.Replace(output, "{time}", currentTime, -1)
+	layout = strings.Replace(layout, "{time}", currentTime, -1)
+	return layout
+}
 
+func (f formatter) formatNewLine(message string) string {
 	if f.newLine {
-		output += "\n"
+		message += "\n"
 	}
-
-	return output
+	return message
 }
 
 func buildInfoFormatter(settings settings) formatter {
