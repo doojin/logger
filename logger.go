@@ -47,6 +47,7 @@ func (l *Logger) Log(levelId string, message string, args ...interface{}) {
 }
 
 func (l *Logger) formatMessage(levelId string, message string, args ...interface{}) (result string) {
+	// If level not supported by logger
 	level, err := getLevel(levelId)
 	if err != nil {
 		result = buildInfofFormatter(l.Settings).format("%v", err)
