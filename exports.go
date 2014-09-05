@@ -54,3 +54,15 @@ func Fatalln(message string) {
 func Fatalf(message string, args ...interface{}) {
 	defaultLogger.Fatalf(message, args...)
 }
+
+func Debug(message string) {
+	defaultLogger.Debug(message)
+}
+
+func Debugln(message string) {
+	defaultLogger.Debugln(message)
+}
+
+func Debugf(message string, args ...interface{}) {
+	defaultLogger.Debugf(message, args...)
+}

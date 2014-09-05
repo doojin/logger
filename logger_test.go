@@ -76,6 +76,13 @@ var formatMessageTestCases = []formatMessageTestCase{
 		args:     []interface{}{"argument1"},
 		expected: "03:04:05 [FATAL] dummy argument1\n",
 	},
+	// [DEBUG] message with arguments
+	formatMessageTestCase{
+		levelId:  "debug",
+		message:  "dummy %v",
+		args:     []interface{}{"argument1"},
+		expected: "03:04:05 [DEBUG] dummy argument1\n",
+	},
 }
 
 func Test_formatMessage_ShouldFormatMessageCorrectly(t *testing.T) {

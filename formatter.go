@@ -149,3 +149,29 @@ func buildFatalfFormatter(settings settings) formatter {
 		timeFormat: settings.TimeFormat,
 	}
 }
+
+func buildDebugFormatter(settings settings) formatter {
+	return formatter{
+		level:      DEBUG,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}
+
+func buildDebuglnFormatter(settings settings) formatter {
+	return formatter{
+		level:      DEBUG,
+		newLine:    true,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}
+
+func buildDebugfFormatter(settings settings) formatter {
+	return formatter{
+		level:      DEBUG,
+		newLine:    true,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}
