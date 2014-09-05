@@ -70,6 +70,30 @@ func (l *Logger) Warnln(message string) {
 	l.write(writer, formatter.format(message))
 }
 
+func (l *Logger) Warnf(message string, args ...interface{}) {
+	formatter := buildWarnfFormatter(l.Settings)
+	writer := l.getWriter(l.Settings.Writer)
+	l.write(writer, formatter.format(message, args...))
+}
+
+func (l *Logger) Error(message string) {
+	formatter := buildErrorFormatter(l.Settings)
+	writer := l.getWriter(l.Settings.Writer)
+	l.write(writer, formatter.format(message))
+}
+
+func (l *Logger) Errorln(message string) {
+	formatter := buildErrorlnFormatter(l.Settings)
+	writer := l.getWriter(l.Settings.Writer)
+	l.write(writer, formatter.format(message))
+}
+
+func (l *Logger) Errorf(message string, args ...interface{}) {
+	formatter := buildErrorfFormatter(l.Settings)
+	writer := l.getWriter(l.Settings.Writer)
+	l.write(writer, formatter.format(message, args...))
+}
+
 func (l *Logger) formatMessage(levelId string, message string, args ...interface{}) (result string) {
 	// If level not supported by logger
 	level, err := getLevel(levelId)
@@ -82,16 +106,12 @@ func (l *Logger) formatMessage(levelId string, message string, args ...interface
 		result = buildInfofFormatter(l.Settings).format(message, args...)
 	case WARN:
 		result = buildWarnfFormatter(l.Settings).format(message, args...)
+	case ERROR:
+		result = buildErrorfFormatter(l.Settings).format(message, args...)
 	default:
 		result = buildInfofFormatter(l.Settings).format(message, args...)
 	}
 	return
-}
-
-func (l *Logger) Warnf(message string, args ...interface{}) {
-	formatter := buildWarnfFormatter(l.Settings)
-	writer := l.getWriter(l.Settings.Writer)
-	l.write(writer, formatter.format(message, args...))
 }
 
 func (l *Logger) getWriter(writerName string) io.Writer {

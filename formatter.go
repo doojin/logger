@@ -97,3 +97,29 @@ func buildWarnfFormatter(settings settings) formatter {
 		timeFormat: settings.TimeFormat,
 	}
 }
+
+func buildErrorFormatter(settings settings) formatter {
+	return formatter{
+		level:      ERROR,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}
+
+func buildErrorlnFormatter(settings settings) formatter {
+	return formatter{
+		level:      ERROR,
+		newLine:    true,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}
+
+func buildErrorfFormatter(settings settings) formatter {
+	return formatter{
+		level:      ERROR,
+		newLine:    true,
+		layout:     settings.Layout,
+		timeFormat: settings.TimeFormat,
+	}
+}

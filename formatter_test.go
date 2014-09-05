@@ -167,6 +167,16 @@ var formatLayoutTestcases = []formatLayoutTestcase{
 		message:        "dummy",
 		expectedOutput: "WARN 03:04:05 dummy",
 	},
+	// ERROR
+	formatLayoutTestcase{
+		formatter: formatter{
+			level:      ERROR,
+			layout:     "{level} {time} {message}",
+			timeFormat: "15:04:05",
+		},
+		message:        "dummy",
+		expectedOutput: "ERROR 03:04:05 dummy",
+	},
 	// Empty layout
 	formatLayoutTestcase{
 		formatter: formatter{
@@ -263,6 +273,36 @@ func Test_buildWarnfFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
 	actualOutput := formatter.format(input, []interface{}{"dummy"}...)
 
 	assert.Equal(t, "03:04:05 [WARN] dummy dummy\n", actualOutput)
+}
+
+func Test_buildErrorFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
+	logger := New()
+	formatter := buildErrorFormatter(logger.Settings)
+	input := "dummy"
+
+	actualOutput := formatter.format(input)
+
+	assert.Equal(t, "03:04:05 [ERROR] dummy", actualOutput)
+}
+
+func Test_buildErrorlnFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
+	logger := New()
+	formatter := buildErrorlnFormatter(logger.Settings)
+	input := "dummy"
+
+	actualOutput := formatter.format(input)
+
+	assert.Equal(t, "03:04:05 [ERROR] dummy\n", actualOutput)
+}
+
+func Test_buildErrorfFormatter_ShouldProvideCorrectFormatter(t *testing.T) {
+	logger := New()
+	formatter := buildErrorfFormatter(logger.Settings)
+	input := "dummy %v"
+
+	actualOutput := formatter.format(input, []interface{}{"dummy"}...)
+
+	assert.Equal(t, "03:04:05 [ERROR] dummy dummy\n", actualOutput)
 }
 
 func Test_formatArgs_ShouldFormatArgumentsIfTheyExist(t *testing.T) {

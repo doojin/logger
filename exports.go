@@ -26,3 +26,15 @@ func Warnln(message string) {
 func Warnf(message string, args ...interface{}) {
 	defaultLogger.Warnf(message, args...)
 }
+
+func Error(message string) {
+	defaultLogger.Error(message)
+}
+
+func Errorln(message string) {
+	defaultLogger.Errorln(message)
+}
+
+func Errorf(message string, args ...interface{}) {
+	defaultLogger.Errorf(message, args...)
+}
