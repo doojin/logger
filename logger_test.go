@@ -22,7 +22,7 @@ var formatMessageTestCases = []formatMessageTestCase{
 	formatMessageTestCase{
 		levelId:  "dummy",
 		message:  "dummy",
-		expected: "03:04:05 [INFO] Unknown logging level: dummy\n",
+		expected: "03:04:05 [ERROR] Unknown logging level: dummy\n",
 	},
 	// [INFO] message
 	formatMessageTestCase{
