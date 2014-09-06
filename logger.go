@@ -145,7 +145,7 @@ func (l *Logger) formatMessage(levelId string, message string, args ...interface
 	// If level not supported by logger
 	level, err := getLevel(levelId)
 	if err != nil {
-		result = buildInfofFormatter(l.Settings).format("%v", err)
+		result = buildErrorfFormatter(l.Settings).format("%v", err)
 		return
 	}
 	switch level {
