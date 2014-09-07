@@ -4,7 +4,7 @@ Golang Simple Logger
 [![Build Status](https://travis-ci.org/doojin/logger.svg)](https://travis-ci.org/doojin/logger)
 
 I am glad to introduce you a very simple implementation of Go Logger.
-The main idea of the project is to create a logger which will be really easy to use and configure (if need)
+The main idea of the project is to create a logger which will be really easy to use and configure (if need).
 
 Usage
 =====
