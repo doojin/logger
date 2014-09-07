@@ -3,6 +3,14 @@ Golang Logger
 
 [![Build Status](https://travis-ci.org/doojin/logger.svg)](https://travis-ci.org/doojin/logger)
 
-TODO: add description of the project
+Usage
+=====
 
-TODO: add examples of usage
+The simplest way to use logger:
+    import "./logger"
+    
+    func main() {
+        logger.Info("Hello, world!")
+    }
+Will output:
+>15:52:57 [INFO] Hello, world!
