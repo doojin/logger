@@ -5,10 +5,7 @@ import (
 	"strings"
 )
 
-type formatterI interface {
-	Format(message string) string
-}
-
+// Formatter formats message according to settings set by user
 type formatter struct {
 	level      Level
 	newLine    bool
@@ -16,6 +13,7 @@ type formatter struct {
 	timeFormat string
 }
 
+// Formats message
 func (f formatter) format(message string, args ...interface{}) string {
 	message = f.formatArgs(message, args...)
 	output := f.formatLayout(message)
@@ -23,6 +21,7 @@ func (f formatter) format(message string, args ...interface{}) string {
 	return output
 }
 
+// Formats arguments of message, placing them into defined placeholders
 func (f formatter) formatArgs(message string, args ...interface{}) string {
 	if len(args) > 0 {
 		message = fmt.Sprintf(message, args...)
@@ -30,6 +29,8 @@ func (f formatter) formatArgs(message string, args ...interface{}) string {
 	return message
 }
 
+// Formats layout (specifies position of message level, message text and time
+// in the output)
 func (f formatter) formatLayout(message string) string {
 	layout := f.layout
 	layout = strings.Replace(layout, "{level}", getLevelRep(f.level), -1)
@@ -39,6 +40,7 @@ func (f formatter) formatLayout(message string) string {
 	return layout
 }
 
+// Adds new line in the end of message if required
 func (f formatter) formatNewLine(message string) string {
 	if f.newLine {
 		message += "\n"
@@ -46,6 +48,7 @@ func (f formatter) formatNewLine(message string) string {
 	return message
 }
 
+// Builds formatter for Info messages (without new line)
 func buildInfoFormatter(settings settings) formatter {
 	return formatter{
 		level:      INFO,
@@ -54,6 +57,7 @@ func buildInfoFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Info messages (with new line)
 func buildInfolnFormatter(settings settings) formatter {
 	return formatter{
 		level:      INFO,
@@ -63,6 +67,7 @@ func buildInfolnFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Info messages (with new line)
 func buildInfofFormatter(settings settings) formatter {
 	return formatter{
 		level:      INFO,
@@ -72,6 +77,7 @@ func buildInfofFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Warning messages (without new line)
 func buildWarnFormatter(settings settings) formatter {
 	return formatter{
 		level:      WARN,
@@ -80,6 +86,7 @@ func buildWarnFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Warning messages (with new line)
 func buildWarnlnFormatter(settings settings) formatter {
 	return formatter{
 		level:      WARN,
@@ -89,6 +96,7 @@ func buildWarnlnFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Warning messages (with new line)
 func buildWarnfFormatter(settings settings) formatter {
 	return formatter{
 		level:      WARN,
@@ -98,6 +106,7 @@ func buildWarnfFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Error messages (without new line)
 func buildErrorFormatter(settings settings) formatter {
 	return formatter{
 		level:      ERROR,
@@ -106,6 +115,7 @@ func buildErrorFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Error messages (with new line)
 func buildErrorlnFormatter(settings settings) formatter {
 	return formatter{
 		level:      ERROR,
@@ -115,6 +125,7 @@ func buildErrorlnFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Error messages (with new line)
 func buildErrorfFormatter(settings settings) formatter {
 	return formatter{
 		level:      ERROR,
@@ -124,6 +135,7 @@ func buildErrorfFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Fatal messages (without new line)
 func buildFatalFormatter(settings settings) formatter {
 	return formatter{
 		level:      FATAL,
@@ -132,6 +144,7 @@ func buildFatalFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Fatal messages (with new line)
 func buildFatallnFormatter(settings settings) formatter {
 	return formatter{
 		level:      FATAL,
@@ -141,6 +154,7 @@ func buildFatallnFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Fatal messages (with new line)
 func buildFatalfFormatter(settings settings) formatter {
 	return formatter{
 		level:      FATAL,
@@ -150,6 +164,7 @@ func buildFatalfFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Debug messages (without new line)
 func buildDebugFormatter(settings settings) formatter {
 	return formatter{
 		level:      DEBUG,
@@ -158,6 +173,7 @@ func buildDebugFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Debug messages (with new line)
 func buildDebuglnFormatter(settings settings) formatter {
 	return formatter{
 		level:      DEBUG,
@@ -167,6 +183,7 @@ func buildDebuglnFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Debug messages (with new line)
 func buildDebugfFormatter(settings settings) formatter {
 	return formatter{
 		level:      DEBUG,
@@ -176,6 +193,7 @@ func buildDebugfFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Trace messages (without new line)
 func buildTraceFormatter(settings settings) formatter {
 	return formatter{
 		level:      TRACE,
@@ -184,6 +202,7 @@ func buildTraceFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Trace messages (with new line)
 func buildTracelnFormatter(settings settings) formatter {
 	return formatter{
 		level:      TRACE,
@@ -193,6 +212,7 @@ func buildTracelnFormatter(settings settings) formatter {
 	}
 }
 
+// Builds formatter for Trace messages (with new line)
 func buildTracefFormatter(settings settings) formatter {
 	return formatter{
 		level:      TRACE,
