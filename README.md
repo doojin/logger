@@ -74,4 +74,5 @@ To do this, you can change value of logger.Settings.Layout.
     
 The output will be:
 >Test message 1 *** 16:17:29 *** INFO
+>
 >Test message 2
