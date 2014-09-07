@@ -7,6 +7,7 @@ Usage
 =====
 
 The simplest way to use logger:
+
     import "./logger"
     
     func main() {
